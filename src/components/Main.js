@@ -9,15 +9,16 @@ function importAll(r) {
 
 importAll(require.context("../images", false, /\.(png|jpe?g|svg)$/));
 
-// const images = Object.entries(cache).map(module => module[1].default);
-const img_array = new Map(Object.entries(cache));
-const imgNodes = img_array.forEach((img) => (<img src={img.value}></img>))
+const images = Object.entries(cache).map((module) => module[1]);
+const imageNodes = images.map((item) => <img src={item}></img>)
+
+
 
 function Main() {
     return (
         <Container as='main'>
             <Flex wrap='wrap'>
-                { imgNodes }
+                {imageNodes}
             </Flex>
             {/* <Heading>{imgNodes}</Heading> */}
         </Container>
