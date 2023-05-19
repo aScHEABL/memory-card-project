@@ -7,9 +7,9 @@ function Header() {
     const { colorMode, toggleColorMode } = useColorMode();
 
     return (
-            <Flex as='header' justify gap={80} alignItems='center'>
+            <Flex as='header' maxW='120ch' justify='center' alignItems='center' gap={10}>
                 <Heading as='h1' size='2xl'>MEMORY GAME</Heading>
-                <Button pos='absolute' top='10%' left='50%' onClick={() => toggleColorMode()}
+                <Button  onClick={() => toggleColorMode()}
                 m="1rem">
                     {colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
                 </Button> 
