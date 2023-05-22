@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import _ from 'lodash-es';
 import { Container, Flex, Image, Box } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
+import { GameContext } from '../GameContext';
 
 const Main = () => {
-  const [images, setImages] = useState([]);
+  // const [images, setImages] = useState([]);
+  const { images, setImages, score, setScore, bestScore, setBestScore } = useContext(GameContext);
   const [renderedImages, setRenderedImages] = useState([]);
 
   useEffect(() => {
@@ -34,11 +36,23 @@ const Main = () => {
     setRenderedImages(randomImages);
   };
 
+  const resetGame = () => {
+    if (score > bestScore) setBestScore(score);
+    const resetImages = images.map((image) => ({ ...image, checked: false }));
+    setImages(resetImages);
+    setScore(0);
+  };
+
   const handleImageClick = (id) => {
-    const updatedImages = images.map((image) =>
-      image.id === id ? { ...image, checked: true } : image
-    );
-    setImages(updatedImages);
+    const clickedImage = images.find((image) => image.id === id);
+    if (clickedImage.checked) resetGame();
+    else {
+      const updatedImages = images.map((image) =>
+        image.id === id ? { ...image, checked: true } : image
+      )
+      setImages(updatedImages);
+      setScore((prevScore) => prevScore + 1);
+    }
   };
 
   useEffect(() => {
@@ -51,8 +65,10 @@ const Main = () => {
     <Container as="main" maxW="180ch" centerContent>
       <Flex wrap="nowrap" justify="center" alignItems="center">
         {renderedImages.map((item) => (
-          <Box key={item.id} boxSize="sm">
+          <Box key={item.id} w='400px' h='600px'>
             <Image
+              w='100%'
+              h='100%'
               objectFit="cover"
               src={item.src}
               style={{ cursor: 'pointer' }}
