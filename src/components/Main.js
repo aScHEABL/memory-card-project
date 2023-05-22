@@ -62,10 +62,25 @@ const Main = () => {
   }, [images]);
 
   return (
-    <Container as="main" maxW="180ch" centerContent>
-      <Flex wrap="nowrap" justify="center" alignItems="center">
+      <Flex wrap="nowrap" justify="center" alignItems="center" gap={4} w={
+        {
+          sm: '30em', // 480px
+          md: '48em', // 768px
+          lg: '62em', // 992px
+          xl: '80em', // 1280px
+          '2xl': '96em', // 1536px
+        }
+      }>
         {renderedImages.map((item) => (
-          <Box key={item.id} w='400px' h='600px'>
+          <Box key={item.id} w='400px' h='600px' w={
+            {
+              sm: '5em', // 480px
+              md: '10em', // 768px
+              lg: '15em', // 992px
+              xl: '20em', // 1280px
+              '2xl': '30em', // 1536px
+            }
+          }>
             <Image
               w='100%'
               h='100%'
@@ -78,7 +93,6 @@ const Main = () => {
           </Box>
         ))}
       </Flex>
-    </Container>
   );
 };
 
